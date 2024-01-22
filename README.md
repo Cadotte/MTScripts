@@ -1,6 +1,6 @@
 # MTScripts
 
-Series of Shell scripts for Machine Translation, to serve as examples for MT projects. These scripts are derived from scripts I used during for my masters thesis (M. Sc. in Computer Science).
+Series of Shell scripts for Machine Translation, to serve as examples for MT projects. These scripts are derived from scripts I used during for my masters thesis (M.Sc. in Computer Science).
 
 Note: In all these examples, "src" is the source language and "tgt" is the target language, to be replaced for example with the actual ISO codes for the chosen languages.
 
@@ -8,15 +8,15 @@ Note: In all these examples, "src" is the source language and "tgt" is the targe
 
 Scripts to train a Transformer NMT model, based on train, valid and test sets. These scripts are partly adapted from fairseq scripts (https://github.com/facebookresearch/fairseq)
 
-### transformer/prepare_transformer_ia-fr.sh
+### transformer/prepare_transformer.sh
 Pre-processing (tokenizing, punctuation standardization, etc.) and segmentation steps. Segmentation is performed by training & applying a sentencepiece BPE model.
 Preprocessing requires Moses scripts and segmentation requires fairseq scripts.
 
-### transformer/train-evaluate_transformer_ia-fr.sh
+### transformer/train-evaluate_transformer.sh
 Training and evaluation of Transformer model using pre-processed train, valid and test sets. Both steps require fairseq scripts.
 
-### transformer/use-interactive_transformer_ia-fr.sh
-Interactively use the model trained with train-evaluate_transformer_ia-fr.sh script to produce translations (from ia to fr). This requires fairseq scripts.
+### transformer/use-interactive_transformer.sh
+Interactively use the model trained with train-evaluate_transformer.sh script to produce translations (from src to tgt). This requires fairseq scripts.
 
 ## Statistical (SMT)
 
