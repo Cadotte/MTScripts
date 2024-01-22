@@ -2,7 +2,7 @@
 
 Series of Shell scripts for Machine Translation, to serve as examples for MT projects. These scripts are derived from scripts I used during for my masters thesis (M. Sc. in Computer Science).
 
-Note: In all these examples, "ia" is the source language and "fr" is the target language.
+Note: In all these examples, "src" is the source language and "tgt" is the target language, to be replaced for example with the actual ISO codes for the chosen languages.
 
 ## Transformer (NMT)
 
