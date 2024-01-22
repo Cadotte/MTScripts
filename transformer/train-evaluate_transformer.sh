@@ -2,7 +2,7 @@
 # See Copyright and Permission notice at end of script
 
 # Define model, dataset, workspace and checkpoints names/directories
-MODEL_NAME=model_name.ia-fr.bpe16k
+MODEL_NAME=model_name.src-tgt.bpe16k
 TEXT=../data/corpora/$MODEL_NAME
 WORK=workspaces/$MODEL_NAME
 mkdir -p $WORK
@@ -10,10 +10,10 @@ CHECKPOINTS=checkpoints/$MODEL_NAME
 mkdir -p $CHECKPOINTS
 
 ## Binarize dataset
-fairseq-preprocess --source-lang ia --target-lang fr \
-    --trainpref $TEXT/train.bpe.ia-fr \
-    --validpref $TEXT/valid.bpe.ia-fr \
-    --testpref $TEXT/test.bpe.ia-fr \
+fairseq-preprocess --source-lang src --target-lang tgt \
+    --trainpref $TEXT/train.bpe.src-tgt \
+    --validpref $TEXT/valid.bpe.src-tgt \
+    --testpref $TEXT/test.bpe.src-tgt \
     --destdir $WORK \
     --workers 32
 
@@ -47,7 +47,7 @@ fairseq-generate \
     $WORK \
     --path $CHECKPOINTS/checkpoint_best.pt \
     --task translation \
-    --source-lang ia --target-lang fr \
+    --source-lang src --target-lang tgt \
     --beam 5 \
     --tokenizer moses \
     --remove-bpe=sentencepiece \
@@ -61,7 +61,7 @@ fairseq-generate \
 
 # Copyright (c) Facebook, Inc. and its affiliates.
 
-# Permission is hereby granted, free of charge, to any person obtaining a copy
+# Permission is hereby granted, tgtee of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell

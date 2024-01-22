@@ -13,8 +13,8 @@ SPM_TRAIN=$FAIRSEQ_SCRIPTS/spm_train.py
 SPM_ENCODE=$FAIRSEQ_SCRIPTS/spm_encode.py
 
 # Define source and target languages
-SRCS=("ia")
-TGT=fr
+SRCS=("src")
+TGT=tgt
 
 # Define BPE vocabulary size, min and max sentence lenghts
 BPESIZE=16000
@@ -22,7 +22,7 @@ TRAIN_MINLEN=1  # remove sentences with <1 BPE token
 TRAIN_MAXLEN=250  # remove sentences with >250 BPE tokens
 
 # Define model name and create preprocessed & segmented data directory
-MODEL_NAME=model_name.ia-fr
+MODEL_NAME=model_name.ia-tgt
 ORIG=../data/corpora/$MODEL_NAME
 DATA=../data/corpora/$MODEL_NAME.bpe16k
 mkdir -p "$DATA"
@@ -81,7 +81,7 @@ done
 
 echo "encoding valid with learned BPE..."
 
-SRC=ia
+SRC=src
 
 # encode valid set
 python "$SPM_ENCODE" \

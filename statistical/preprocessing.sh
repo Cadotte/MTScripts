@@ -3,59 +3,59 @@
 
 # Define paths
 HOME_DIR=path/to/your/home/
-WORKING_DIR=$HOME_DIR/path/to/project/smt/model_name.ia-fr
+WORKING_DIR=$HOME_DIR/path/to/project/smt/model_name.src-tgt
 MOSES_SRCDIR=$HOME_DIR/path/to/tools/mosesdecoder
 
 echo "Tokenizing training data..."
 # Tokenization
-$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l ia \
-    < $WORKING_DIR/corpus/training/train.ia-fr.ia    \
-    > $WORKING_DIR/corpus/train.ia-fr.tok.ia
+$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l src \
+    < $WORKING_DIR/corpus/training/train.src-tgt.src    \
+    > $WORKING_DIR/corpus/train.src-tgt.tok.src
 
-$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l fr \
-    < $WORKING_DIR/corpus/training/train.ia-fr.fr    \
-    > $WORKING_DIR/corpus/train.ia-fr.tok.fr
+$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l tgt \
+    < $WORKING_DIR/corpus/training/train.src-tgt.tgt    \
+    > $WORKING_DIR/corpus/train.src-tgt.tok.tgt
 
 echo "Truecaser Training..."
 # Truecaser Training
 $MOSES_SRCDIR/scripts/recaser/train-truecaser.perl \
-     --model $WORKING_DIR/corpus/truecase-model.ia --corpus     \
-     $WORKING_DIR/corpus/train.ia-fr.tok.ia
+     --model $WORKING_DIR/corpus/truecase-model.src --corpus     \
+     $WORKING_DIR/corpus/train.src-tgt.tok.src
 $MOSES_SRCDIR/scripts/recaser/train-truecaser.perl \
-     --model $WORKING_DIR/corpus/truecase-model.fr --corpus     \
-     $WORKING_DIR/corpus/train.ia-fr.tok.fr
+     --model $WORKING_DIR/corpus/truecase-model.tgt --corpus     \
+     $WORKING_DIR/corpus/train.src-tgt.tok.tgt
 
 echo "Truecasing training data..."
 # Truecasing
 $MOSES_SRCDIR/scripts/recaser/truecase.perl \
-   --model $WORKING_DIR/corpus/truecase-model.ia         \
-   < $WORKING_DIR/corpus/train.ia-fr.tok.ia \
-   > $WORKING_DIR/corpus/train.ia-fr.true.ia
+   --model $WORKING_DIR/corpus/truecase-model.src         \
+   < $WORKING_DIR/corpus/train.src-tgt.tok.src \
+   > $WORKING_DIR/corpus/train.src-tgt.true.src
 $MOSES_SRCDIR/scripts/recaser/truecase.perl \
-   --model $WORKING_DIR/corpus/truecase-model.fr         \
-   < $WORKING_DIR/corpus/train.ia-fr.tok.fr \
-   > $WORKING_DIR/corpus/train.ia-fr.true.fr
+   --model $WORKING_DIR/corpus/truecase-model.tgt         \
+   < $WORKING_DIR/corpus/train.src-tgt.tok.tgt \
+   > $WORKING_DIR/corpus/train.src-tgt.true.tgt
    
 echo "Tokenizing and Truecasing tuning data..."
 # Tokenize and Truecase tuning data
 cd $WORKING_DIR/corpus
-$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l ia \
-   < dev/valid.ia-fr.ia > valid.tok.ia-fr.ia
-$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l fr \
-   < dev/valid.ia-fr.fr > valid.tok.ia-fr.fr
-$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.ia \
-   < valid.tok.ia-fr.ia > valid.ia-fr.true.ia
-$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.fr \
-   < valid.tok.ia-fr.fr > valid.ia-fr.true.fr
+$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l src \
+   < dev/valid.src-tgt.src > valid.tok.src-tgt.src
+$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l tgt \
+   < dev/valid.src-tgt.tgt > valid.tok.src-tgt.tgt
+$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.src \
+   < valid.tok.src-tgt.src > valid.src-tgt.true.src
+$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.tgt \
+   < valid.tok.src-tgt.tgt > valid.src-tgt.true.tgt
 
 echo "Tokenizing and Truecasing testing data..."
 # Tokenize and Truecase testing data
 cd $WORKING_DIR/corpus
-$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l ia \
-   < test/test.ia-fr.ia >test.tok.ia-fr.ia
-$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l fr \
-   < test/test.ia-fr.fr >test.tok.ia-fr.fr
-$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.ia \
-   <test.tok.ia-fr.ia >test.ia-fr.true.ia
-$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.fr \
-   <test.tok.ia-fr.fr >test.ia-fr.true.fr
+$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l src \
+   < test/test.src-tgt.src >test.tok.src-tgt.src
+$MOSES_SRCDIR/scripts/tokenizer/tokenizer.perl -l tgt \
+   < test/test.src-tgt.tgt >test.tok.src-tgt.tgt
+$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.src \
+   <test.tok.src-tgt.src >test.src-tgt.true.src
+$MOSES_SRCDIR/scripts/recaser/truecase.perl --model truecase-model.tgt \
+   <test.tok.src-tgt.tgt >test.src-tgt.true.tgt

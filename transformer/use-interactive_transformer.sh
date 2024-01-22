@@ -2,7 +2,7 @@
 # See Copyright and Permission notice at end of script
 
 # Define paths
-MODEL_NAME=model_name.ia-fr.bpe16k
+MODEL_NAME=model_name.src-tgt.bpe16k
 CHECKPOINTS=checkpoints/$MODEL_NAME
 WORK=workspaces/$MODEL_NAME
 BPE=../data/corpora/$MODEL_NAME
@@ -12,7 +12,7 @@ TOKENIZER=$SCRIPTS/tokenizer/tokenizer.perl
 # Launch interactive translation interface
 fairseq-interactive $WORK \
 --path $CHECKPOINTS/checkpoint_best.pt \
---beam 5 --source-lang ia --target-lang fr \
+--beam 5 --source-lang src --target-lang tgt \
 --tokenizer moses \
 --bpe sentencepiece --sentencepiece-model $BPE/sentencepiece.bpe.model
 
